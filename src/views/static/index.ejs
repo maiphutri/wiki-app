@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./partials/head.ejs %>
+</head>
+<body>
+  <% include ./partials/navbar.ejs %>
+  
+  <main class="container text-center">
+      <h1 class="display-4">Blocipedia: Social, Markdown Wikis</h1>
+      <header class="jumbotron my-4">
+        <h1 class="display-5">Create and share Markdown Wikis</h1>
+        <a href="#" class="btn btn-primary btn-lg">Sign up</a>
+      </header>
+
+      <section class="row">
+
+        <section class="col-lg-6">
+          <p class="card-text">Create as many public wikis as you want!</p>
+          <a href="#">
+            <i class="fas fa-dice-d6 fa-6x" style="padding-bottom:10px"></i>
+          </a>
+          <h4 class="card-title">Free Plan</h4>
+        </section>
+
+        <section class="col-lg-6">
+          <p class="card-text">Create private wikis!</p>
+          <a href="#">
+            <i class="fas fa-dice-d20 fa-6x" style="padding-bottom:10px"></i>
+          </a>
+          <h4 class="card-title">Premium Plan</h4>
+        </section>
+
+      </section>
+
+  </main>
+  <% include ./partials/baseScripts.ejs %>
+</body>
+</html>

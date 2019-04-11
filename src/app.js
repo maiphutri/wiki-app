@@ -4,6 +4,6 @@ const express     = require("express"),
       appConfig  = require("./config/main-config");
 
 routeConfig.init(app);
-appConfig.init();
+appConfig.init(app, express);
 
 module.exports = app;
