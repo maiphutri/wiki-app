@@ -1,0 +1,11 @@
+{
+  "name": "blocipedia",
+  "version": "1.0.0",
+  "description": "A Wikipedia-like application for users collaboratively modify content and struture directly from the web browser.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "export NODE_ENV=test && jasmine"
+  },
+  "author": "Tri Mai",
+  "license": "ISC"
+}
