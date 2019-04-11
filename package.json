@@ -11,11 +11,15 @@
   "license": "ISC",
   "devDependencies": {
     "jasmine": "^3.4.0",
+    "morgan": "^1.9.1",
     "request": "^2.88.0"
   },
   "dependencies": {
     "dotenv": "^7.0.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "pg": "^7.9.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^5.3.1"
   }
 }
