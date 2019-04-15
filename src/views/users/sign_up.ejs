@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+<body>
+  <% include ../static/partials/navbar.ejs %>
+
+  <main class='container'>
+
+    <% include ../static/partials/messages.ejs %>
+
+    <h2 class='text-center'>Welcome to Blocipedia</h2>
+
+    <form action="/users/sign_up" method="post">
+
+      <div class='form-group'>
+        <label for="email">Email</label>
+        <input 
+          type="email"
+          class="form-control"
+          name="email"
+          aria-describedby="emailHelp"
+          placeholder="Enter Email"
+        >
+      </div>
+      
+      <div class='form-group'>
+        <label for="password">Password</label>
+        <input 
+          type="password"
+          name="password"
+          class="form-control"
+          aria-describedby="passwordHelp"
+          placeholder="Enter Password"
+        >
+        <small class="text-muted" id="passwordHelp">password must be 6 or more characters in length.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="passwordConfirmation">Password Confirmation</label>
+        <input 
+          type="password"
+          name="passwordConfirmation"
+          class="form-control"
+          aria-describedby="passwordHelp"
+          placeholder="Retype your password"
+        >
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Sign up</button>
+    </form>
+  </main>
+  
+  <% include ../static/partials/baseScripts.ejs %>
+</body>
+</html>

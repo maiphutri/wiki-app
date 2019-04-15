@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <% include ./partials/head.ejs %>
 </head>
@@ -7,10 +7,13 @@
   <% include ./partials/navbar.ejs %>
   
   <main class="container text-center">
+
+    <% include ./partials/messages.ejs %>
+
       <h1 class="display-4">Blocipedia: Social, Markdown Wikis</h1>
       <header class="jumbotron my-4">
         <h1 class="display-5">Create and share Markdown Wikis</h1>
-        <a href="#" class="btn btn-primary btn-lg">Sign up</a>
+        <a href="/users/sign_up" class="btn btn-primary btn-lg">Sign up</a>
       </header>
 
       <section class="row">
