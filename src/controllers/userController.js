@@ -1,8 +1,6 @@
 const userQueries = require("../db/queries.users"),
       passport    = require('passport'),
-      User        = require("../db/models").User,
-      sgMail           = require('@sendgrid/mail');
-      
+      User        = require("../db/models").User;
 
 module.exports = {
   signUp(req, res, next) {
