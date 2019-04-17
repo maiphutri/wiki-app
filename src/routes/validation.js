@@ -24,4 +24,11 @@ module.exports = {
       })
     ]
   },
+
+  validateWikis(req, res, next) {
+    return [
+      body("title", "must be at least 2 characters in length").isLength({min: 2}),
+      body("body", "must be at least 10 chacacters in length").isLength({min: 10})
+    ]
+  }
 }
