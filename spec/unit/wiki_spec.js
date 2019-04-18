@@ -19,6 +19,7 @@ describe("Wiki", () => {
         Wiki.create({
           title: "MVC",
           body: "Model, View and Controller",
+          userId: this.user.id
         })
         .then(wiki => {
           this.wiki = wiki;
@@ -41,12 +42,14 @@ describe("Wiki", () => {
     it("should create a wiki object with title, body, private and assigned user", (done) => {
       Wiki.create({
         title: "Scrum",
-        body: "Scrum is an agile framework for managing knowledge work"
+        body: "Scrum is an agile framework for managing knowledge work",
+        userId: this.user.id
       })
       .then(wiki => {
         expect(wiki.title).toBe("Scrum");
         expect(wiki.body).toBe("Scrum is an agile framework for managing knowledge work");
         expect(wiki.private).toBe(false);
+        expect(wiki.userId).toBe(this.user.id)
         done();
       })
       .catch(err => {
@@ -72,6 +75,7 @@ describe("Wiki", () => {
         Wiki.create({
           title: "MVC",
           body: "refers to websites that emphasize user-generated content, ease of use",
+          userId: this.user.id
         })
         .then(wiki => {
           done();
@@ -82,4 +86,35 @@ describe("Wiki", () => {
         })
     })
   });
+
+  describe("#setUser()", () => {
+
+    it("should associate a wiki and user together", (done) => {
+      User.create({
+        email: "ada2@yahoo.com",
+        password: "123456"
+      })
+      .then(newUser => {
+        expect(this.wiki.userId).toBe(this.user.id);
+        this.wiki.setUser(newUser).then(wiki => {
+          expect(wiki.userId).toBe(newUser.id);
+          done();
+        })
+        .catch(err => {
+          console.log(err);
+          done();
+        })
+      })
+    })
+  });
+
+  describe("#getUser()", () => {
+
+    it("should return associated User", (done) => {
+      this.wiki.getUser().then(associatedUser => {
+        expect(associatedUser.email).toBe(this.user.email);
+        done();
+      })
+    })
+  })
 })

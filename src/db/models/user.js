@@ -12,9 +12,21 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "member"
     }
   }, {});
   User.associate = function(models) {
+    User.hasMany(models.Wiki, {
+      foreignKey: "userId",
+      as: "wikis"
+    })
   };
+  User.prototype.isAdmin = function() {
+    return this.role === 'admin';
+  }
   return User;
 };

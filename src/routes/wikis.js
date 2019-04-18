@@ -1,8 +1,7 @@
 const express        = require("express"),
       router         = express.Router(),
       wikiController = require("../controllers/wikiController"),
-      validation     = require("./validation"),
-      helper         = require("../auth/helpers");
+      validation     = require("./validation");
 
 router.get("/wikis", wikiController.index);    
 router.get("/wikis/new", wikiController.new);

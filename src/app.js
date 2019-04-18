@@ -5,5 +5,8 @@ const express     = require("express"),
 
 appConfig.init(app, express); // always put appConfig first
 routeConfig.init(app);
+app.get("*", (req, res) => {
+  res.render("static/404");
+})
 
 module.exports = app;

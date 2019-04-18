@@ -1,7 +1,7 @@
 const passport      = require("passport"),
       LocalStrategy = require("passport-local").Strategy,
       User          = require("../db/models").User,
-      authHelper    = require("../auth/helpers");
+      bcrypt        = require("bcryptjs");
 
 module.exports = {
   init(app) {
@@ -12,7 +12,7 @@ module.exports = {
       usernameField: "email"
     }, (email, password, done) => {
       User.findOne({where:{email: email}}).then(user => {
-        if (!user || !authHelper.comparePass(password, user.password)) {
+        if (!user || !bcrypt.compareSync(password, user.password)) {
           return done(null, false, req.flash("notice", "Invalid email or password"));
         }
         return done(null, user);
