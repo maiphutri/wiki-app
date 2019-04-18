@@ -5,7 +5,7 @@ module.exports = {
   index(req, res, next) {
     wikiQueries.getAllWikis((err, wikis) => {
       if(err) {
-        res.redirect(500, "static/index");
+        res.redirect(500, "/");
       } else {
         res.render("wikis/index", {wikis});
       }
