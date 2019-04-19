@@ -1,5 +1,6 @@
 const wikiQueries = require("../db/queries.wikis"),
-      Authorizer  = require("../policies/wiki");
+      Authorizer  = require("../policies/wiki"),
+      server      = require("../server");
 
 module.exports = {
   index(req, res, next) {
@@ -63,8 +64,7 @@ module.exports = {
       if (err || wiki == null) {
         res.redirect(500, `/wikis/${req.params.id}`)
       } else {
-        if(req.headers.referer === `http://localhost:${process.env.PORT || 3000}/users/${req.user.id}/my_wikis`) {
-          console.log(req.headers.referer);
+        if(req.headers.referer === `http://${req.headers.host}/users/${req.user.id}/my_wikis`) {
           res.redirect(req.headers.referer);
         } else {
           res.redirect("/wikis");
