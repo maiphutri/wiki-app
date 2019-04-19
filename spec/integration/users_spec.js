@@ -2,6 +2,7 @@ const request   = require('request'),
       server    = require('../../src/server'),
       base      = "http://localhost:3000/users/",
       User      = require("../../src/db/models").User,
+      Wiki      = require("../../src/db/models").Wiki,
       sequelize = require("../../src/db/models/index").sequelize;
 
 describe("routes : users", () => {
@@ -81,6 +82,47 @@ describe("routes : users", () => {
       request.get(`${base}sign_in`, (err, res, body) => {
         expect(err).toBeNull();
         expect(body).toContain("Sign in");
+        done();
+      })
+    })
+  });
+
+  describe("GET /users/:id", () => {
+
+    beforeEach(done => {
+      this.user;
+      this.wiki;
+
+      User.create({
+        email: "ada@example.com",
+        password: "123456"
+      })
+      .then(user => {
+        this.user = user;
+
+        Wiki.create({
+          title: "Scrum",
+          body: "Scrum is an agile framework for managing knowledge work",
+          userId: this.user.id
+        })
+        .then(wiki => {
+          this.wiki = wiki;
+          done();
+        })
+        .catch(err => {
+          console.log(err);
+          done();
+        })
+      })
+      .catch(err => {
+        console.log(err);
+        done();
+      })
+    });
+
+    it("should present a list of wikis a user has created", (done) => {
+      request.get(`${base}${this.user.id}`, (err, res, body) => {
+        expect(body).toContain("Scrum");
         done();
       })
     })

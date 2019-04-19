@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     Wiki.belongsTo(models.User, {
       foreignKey: "userId",
       onDelete: "CASCADE"
+    });
+    Wiki.addScope("myWikis", (userId) => {
+      return {
+        where: {userId: userId},
+        order:[["updatedAt", "DESC"]]
+      }
     })
   };
   return Wiki;

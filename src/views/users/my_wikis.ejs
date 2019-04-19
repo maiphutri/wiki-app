@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+<body>
+  <% include ../static/partials/navbar.ejs %>
+
+  <main class="container">
+    <% include ../static/partials/messages.ejs %>
+
+    <h2 class="mt-3 text-center">My Wikis</h2>
+
+    <section class="container">
+
+      <ul class="list-group">
+        <% if (wikis) { %>
+          <% wikis.forEach(wiki => { %>
+            <li class="list-group-item">
+
+              <h5 class="d-inline-flex"><a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a></h5>
+
+              <div class="d-flex justify-content-end float-right mb-0">
+
+                <a class="btn btn-warning mr-3" href="/wikis/<%= wiki.id %>/edit">Edit</a>
+
+                <form action="/wikis/<%= wiki.id %>/destroy" method="post">
+    
+                  <button type='button' class='btn btn-danger' data-toggle="modal" data-target="#Modal">Delete</button>
+                  
+                  <% include ../static/partials/delete_modal.ejs %>
+        
+                </form>
+
+              </div>
+
+            </li>
+          <% }) %>
+        <% } %>
+      </ul>
+
+    </section>
+  </main>
+
+  <% include ../static/partials/baseScripts.ejs %>
+</body>
+</html>

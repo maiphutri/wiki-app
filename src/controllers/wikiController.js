@@ -63,7 +63,12 @@ module.exports = {
       if (err || wiki == null) {
         res.redirect(500, `/wikis/${req.params.id}`)
       } else {
-        res.redirect("/wikis");
+        if(req.headers.referer === `http://localhost:${process.env.PORT || 3000}/users/${req.user.id}/my_wikis`) {
+          console.log(req.headers.referer);
+          res.redirect(req.headers.referer);
+        } else {
+          res.redirect("/wikis");
+        }
       }
     })
   },

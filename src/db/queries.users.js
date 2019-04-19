@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs"),
-      User   = require("./models").User;
+      User   = require("./models").User,
+      Wiki   = require("./models").Wiki;
 
 module.exports = {
   createUser(newUser, callback) {
@@ -25,4 +26,23 @@ module.exports = {
     })
   },
   
+  getUser(id, callback) {
+    let result = {};
+    
+    User.findByPk(id).then(user => {
+      if(!user) {
+        callback(404);
+      } else {
+        result.user = user;
+
+        Wiki.scope({method: ["myWikis", id]}).findAll().then(wikis => {
+          result.wikis = wikis;
+          callback(null, result);
+        })
+        .catch(err => {
+          callback(err);
+        })
+      }
+    })
+  }
 }
