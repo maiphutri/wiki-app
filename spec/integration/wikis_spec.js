@@ -3,7 +3,7 @@ const request   = require("request"),
       sequelize = require("../../src/db/models/index").sequelize,
       User      = require("../../src/db/models").User,
       Wiki      = require("../../src/db/models").Wiki,
-      base      = "https://localhost:3000/wikis/";
+      base      = "http://localhost:3000/wikis/";
 
 describe("routes: wikis", () => {
 
@@ -44,7 +44,7 @@ describe("routes: wikis", () => {
     
     beforeEach(done => {
       request.get({
-        url: "https://localhost:3000/auth/fake",
+        url: "http://localhost:3000/auth/fake",
         form: {
           userId: 0
         }
@@ -186,7 +186,7 @@ describe("routes: wikis", () => {
       })
       .then(user => {
         request.get({
-          url: 'https://localhost:3000/auth/fake',
+          url: 'http://localhost:3000/auth/fake',
           form: {
             role: user.role,
             userId: user.id,
@@ -349,7 +349,7 @@ describe("routes: wikis", () => {
 
       beforeEach(done => {
         request.get({
-          url: "https://localhost:3000/auth/fake",
+          url: "http://localhost:3000/auth/fake",
           form: {
             role: "member",
             userId: this.user.id,
@@ -514,7 +514,7 @@ describe("routes: wikis", () => {
         })
         .then(user => {
           request.get({
-            url: "https://localhost:3000/auth/fake",
+            url: "http://localhost:3000/auth/fake",
             form: {
               role: "member",
               userId: user.id,
