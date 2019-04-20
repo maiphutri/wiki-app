@@ -16,7 +16,11 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="/users/<%= currentUser.id %>/my_wikis">My Wikis</a>
-              <a class="dropdown-item" href="#">Plan</a>
+              <% if (currentUser.role === 'premium') { %>
+                <a class="dropdown-item" href="/users/<%= currentUser.id %>/change_plan">Change Plan</a>
+              <% } else {%>
+                <a class="dropdown-item" href="/users/<%= currentUser.id %>/premium_plan">Premium Plan</a>
+              <% } %>
             </div>
           </li>
           <li class="nav-item">

@@ -64,9 +64,11 @@ module.exports = {
       if (err || wiki == null) {
         res.redirect(500, `/wikis/${req.params.id}`)
       } else {
-        if(req.headers.referer === `${process.env.NODE_ENV === 'production' ? 'https' : 'http'}://${req.headers.host}/users/${req.user.id}/my_wikis`) {
+        if(req.headers.referer === `https://${req.headers.host}/users/${req.user.id}/my_wikis`) {
+          req.flash("notice", `<strong>${wiki.title}</strong> is deleted`)
           res.redirect(req.headers.referer);
         } else {
+          req.flash("notice", `<strong>${wiki.title}</strong> is deleted`)
           res.redirect("/wikis");
         }
       }

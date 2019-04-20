@@ -44,5 +44,43 @@ module.exports = {
         })
       }
     })
+  },
+
+  upgradeUser(id, callback) {
+    User.findByPk(id).then(user => {
+      if(!user) { 
+        callback(404); 
+      } else {
+        user.role = 'premium';
+        user.save().then(user => {
+          callback(null, user);
+        })
+        .catch(err => {
+          callback(err);
+        })
+      }
+    })
+    .catch(err => {
+      callback(err);
+    })
+  },
+
+  downgradeUser(id, callback) {
+    User.findByPk(id).then(user => {
+      if (!user) {
+        callback(404);
+      } else {
+        user.role = 'member';
+        user.save().then(user => {
+          callback(null, user);
+        })
+        .catch(err => {
+          callback(err);
+        })
+      }
+    })
+    .catch(err => {
+      callback(err);
+    })
   }
 }

@@ -1,6 +1,6 @@
 const request   = require('request'),
       server    = require('../../src/server'),
-      base      = "http://localhost:3000/users/",
+      base      = "https://localhost:3000/users/",
       User      = require("../../src/db/models").User,
       Wiki      = require("../../src/db/models").Wiki,
       sequelize = require("../../src/db/models/index").sequelize;
@@ -121,7 +121,7 @@ describe("routes : users", () => {
     });
 
     it("should present a list of wikis a user has created", (done) => {
-      request.get(`${base}${this.user.id}`, (err, res, body) => {
+      request.get(`${base}${this.user.id}/my_wikis`, (err, res, body) => {
         expect(body).toContain("Scrum");
         done();
       })

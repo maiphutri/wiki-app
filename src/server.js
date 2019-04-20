@@ -1,10 +1,16 @@
 const app    = require("./app"),
-      http   = require("http"),
-      port   = normalizePort(process.env.PORT || "3000");
+      https  = require("https"),
+      port   = normalizePort(process.env.PORT || "3000"),
+      fs     = require("fs"),
+      path   = require("path");
+
+const options = {
+  key: fs.readFileSync(path.join(__dirname, 'Openssl/server.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'Openssl/server.crt'))
+};
 
 app.set("port", port)
-const server = http.createServer(app);
-server.listen(port);
+const server = https.createServer(options, app).listen(port);
 
 function normalizePort(val) {
   const port = parseInt(val, 10);

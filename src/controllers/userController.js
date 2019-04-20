@@ -66,13 +66,53 @@ module.exports = {
     res.redirect("/");
   },
 
-  show(req, res, next) {
+  myWikis(req, res, next) {
     userQueries.getUser(req.params.id, (err, result) => {
       if (err || result.user === undefined) {
-        req.flash("notice", "No user found with that ID");
+        req.flash("notice", "User not found");
         res.redirect("/");
       } else {
-        res.render("users/my_wikis", {...result});
+        res.render("users/profiles/my_wikis", {...result});
+      }
+    })
+  },
+
+  premiumPlan(req, res, next) {
+    res.render("users/profiles/plan");
+  },
+
+  charge(req, res, next) {
+    if (req.user.role === "premium") {
+      req.flash("notice", "You're already a premium member");
+      res.redirect(req.headers.referer);
+    } else {
+      userQueries.upgradeUser(req.params.id, (err, user) => {
+        if (err || user == null) {
+          req.flash("notice", "User not found");
+          res.redirect("/");
+        } else {
+          res.redirect(`/users/${req.params.id}/charge/thank_you`)
+        }
+      })
+    }
+  },
+
+  thanks(req, res, next) {
+    res.render("users/profiles/thank_you");
+  },
+
+  changePlan(req, res, next) {
+    res.render("users/profiles/change_plan")
+  },
+
+  downgrade(req, res, next) {
+    userQueries.downgradeUser(req.params.id, (err, user) => {
+      if (err || user == null) {
+        req.flash("notice", "User not found");
+        res.redirect("/");
+      } else {
+        req.flash("notice", "You've has been successfully downgraded to standard member")
+        res.redirect("/wikis")
       }
     })
   }

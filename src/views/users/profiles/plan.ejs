@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../../static/partials/head.ejs %>
+</head>
+<body>
+  <% include ../../static/partials/navbar.ejs %>
+
+  <main class="container">
+      <div class="card" id="card">
+          <div class="card-header text-center">
+            <h2>Blocipedia Premium</h2>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title text-center">14.99$</h1>
+            <h5 class="card-text text-success text-center">One Time Payment</h5>
+            <i class="fas fa-check mr-2"></i>Add free
+            <br>
+            <i class="fas fa-check mr-2 text-left"></i>Create your own private wiki
+          </div>
+          <div class="card-footer text-muted text-center">
+              <form action="/users/<%= currentUser.id %>/charge" method="POST">
+                <script
+                  src="https://checkout.stripe.com/checkout.js"
+                  class="stripe-button"
+                  data-key="pk_test_EIICAPth25ronKsGI5dVXyrZ00HYlXkAbm"
+                  data-name="Blocipedia Premium"
+                  data-description="Create your own private wiki."
+                  data-amount="1499"
+                  data-locale="auto"
+                  data-email="<%= currentUser.email %>"
+                  data-image="/images/premium.jpeg"
+                >
+                </script>
+              </form>
+          </div>
+        </div>
+  </main>
+
+  <% include ../../static/partials/baseScripts.ejs %>
+</body>
+</html>

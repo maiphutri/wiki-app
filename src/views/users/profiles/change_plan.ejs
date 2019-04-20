@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../../static/partials/head.ejs %>
+</head>
+<body>
+  <% include ../../static/partials/navbar.ejs %>
+
+  <main class="container text-center">
+    <h1>Change Plan</h1>
+
+    <form action="/users/<%= currentUser.id %>/downgrade" method="post">
+      <button type='submit' class='btn btn-danger'>Cancel Premium Plan</button>
+    </form>
+  </main>
+
+  <% include ../../static/partials/baseScripts.ejs %>
+</body>
+</html>

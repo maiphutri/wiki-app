@@ -7,7 +7,6 @@ const path             = require("path"),
       passportConfig   = require("./passport-config"),
       logger           = require('morgan');
       
-
 module.exports = {
   init(app, express) {
     app.set("views", viewFolder);
