@@ -1,6 +1,6 @@
 const request   = require('request'),
       server    = require('../../src/server'),
-      base      = "https://localhost:3000/users/",
+      base      = "http://localhost:3000/users/",
       User      = require("../../src/db/models").User,
       Wiki      = require("../../src/db/models").Wiki,
       sequelize = require("../../src/db/models/index").sequelize;

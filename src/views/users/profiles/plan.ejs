@@ -19,23 +19,46 @@
             <i class="fas fa-check mr-2 text-left"></i>Create your own private wiki
           </div>
           <div class="card-footer text-muted text-center">
-              <form action="/users/<%= currentUser.id %>/charge" method="POST">
-                <script
-                  src="https://checkout.stripe.com/checkout.js"
-                  class="stripe-button"
-                  data-key="pk_test_EIICAPth25ronKsGI5dVXyrZ00HYlXkAbm"
-                  data-name="Blocipedia Premium"
-                  data-description="Create your own private wiki."
-                  data-amount="1499"
-                  data-locale="auto"
-                  data-email="<%= currentUser.email %>"
-                  data-image="/images/premium.jpeg"
-                >
-                </script>
-              </form>
+            <button
+              style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
+              id="checkout-button-sku_EuvprIkTPCNyNE"
+              role="link"
+            >
+              Upgrade
+            </button>
+            
+            <div id="error-message"></div>
           </div>
         </div>
   </main>
+
+  <!-- Load Stripe.js on your website. -->
+  <script src="https://js.stripe.com/v3"></script>
+
+  <!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
+  <script>
+    var stripe = Stripe('pk_test_EIICAPth25ronKsGI5dVXyrZ00HYlXkAbm');
+
+    var checkoutButton = document.getElementById('checkout-button-sku_EuvprIkTPCNyNE');
+    checkoutButton.addEventListener('click', function () {
+      // When the customer clicks on the button, redirect
+      // them to Checkout.
+      stripe.redirectToCheckout({
+        items: [{sku: 'sku_EuvprIkTPCNyNE', quantity: 1}],
+        successUrl: `<%= http %>://<%= host %>/users/<%= currentUser.id %>/charge`,
+        cancelUrl: '<%= http %>://<%= host %>',
+        customerEmail: "<%= currentUser.email %>"
+      })
+      .then(function (result) {
+        if (result.error) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer.
+          var displayError = document.getElementById('error-message');
+          displayError.textContent = result.error.message;
+        }
+      });
+    });
+  </script>
 
   <% include ../../static/partials/baseScripts.ejs %>
 </body>

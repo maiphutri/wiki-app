@@ -2,7 +2,6 @@ const app    = require("./app"),
       http  = require("http"),
       port   = normalizePort(process.env.PORT || "3000");
 
-
 app.set("port", port)
 const server = http.createServer(app).listen(port);
 

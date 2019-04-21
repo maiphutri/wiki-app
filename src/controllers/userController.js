@@ -78,7 +78,9 @@ module.exports = {
   },
 
   premiumPlan(req, res, next) {
-    res.render("users/profiles/plan");
+    let http = "http";
+    if (process.env.NODE_ENV === "production") {http = "https"};
+    res.render("users/profiles/plan", {http: http, host: req.headers.host});
   },
 
   charge(req, res, next) {
