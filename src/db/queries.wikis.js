@@ -30,8 +30,13 @@ module.exports = {
   },
 
   getWiki(id, callback) {
+    let result = {};
     return Wiki.findByPk(id).then(wiki => {
-      callback(null, wiki);
+      result.wiki = wiki;
+      User.scope({method: ["user", wiki.userId]}).findOne().then(user => {
+        result.user = user;
+        callback(null, result);
+      })
     })
     .catch(err => {
       callback(err);

@@ -12,6 +12,9 @@
 
     <h1><%= wiki.title %></h1>
 
+  
+    <small class="text-muted">created by <%= user.email %></small>
+
     <% if (currentUser) { %>
       <% if (currentUser.id === wiki.userId || currentUser.isAdmin()) { %>
 

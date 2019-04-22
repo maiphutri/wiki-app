@@ -14,14 +14,22 @@
     <div class="text-center">
       <a href="/wikis/new" class="btn btn-success mx-auto">New Wiki</a>
     </div>
-
-    <ul class="list-group mt-3">
-      <% wikis.forEach(wiki => { %>
-        <li class="list-group-item">
-          <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
-        </li>
-      <% }) %>
-    </ul>
+      <ul class="list-group mt-3">
+        <% wikis.forEach(wiki => { %>
+          <% if (currentUser && (currentUser.role === "premium" || currentUser.isAdmin())) { %>
+          <li class="list-group-item">
+            <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+            <% if (wiki.private) { %>
+              <span class="badge badge-pill badge-success">private</span>
+            <% } %>
+          </li>
+          <% } else if ( wiki.private === false ){ %>
+              <li class="list-group-item">
+                <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+              </li>
+          <% } %>
+        <% }) %>
+      </ul>
   </main>
   
   <% include ../static/partials/baseScripts.ejs %>

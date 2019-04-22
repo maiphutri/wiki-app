@@ -26,13 +26,15 @@ module.exports = {
   },
 
   create(req, res, next) {
+    console.log(req.body);
     const authorized = new Authorizer(req.user).create();
 
     if (authorized) {
       let newWiki = {
         title: req.body.title,
         body: req.body.body,
-        userId: req.user.id
+        userId: req.user.id,
+        private: req.body.private
       };
   
       wikiQueries.addWiki(newWiki, (err, wiki) => {
@@ -50,11 +52,11 @@ module.exports = {
   },
 
   show(req, res, next) {
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
-      if (err || wiki == null) {
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      if (err || result.wiki == null) {
         res.redirect(500, `/wikis/${req.params.id}`);
       } else {
-        res.render("wikis/show", {wiki})
+        res.render("wikis/show", {...result});
       }
     })
   },
@@ -76,14 +78,14 @@ module.exports = {
   },
 
   edit(req, res, next) {
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
-      if (err || wiki == null) {
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      if (err || result.wiki == null) {
         res.redirect(500, `/wikis/${req.params.id}`);
       } else {
-        const authorized = new Authorizer(req.user, wiki).edit();
+        const authorized = new Authorizer(req.user, result.wiki).edit();
 
         if (authorized) {
-          res.render("wikis/edit", {wiki});
+          res.render("wikis/edit", {...result});
         } else {
           req.flash("notice", "You are not authorized to do that.");
           res.redirect(`/wikis/${req.params.id}`)
@@ -95,7 +97,8 @@ module.exports = {
   update(req, res, next) {
     let updatedWiki = {
       title: req.body.title,
-      body: req.body.body
+      body: req.body.body,
+      private: req.body.private
     }
     wikiQueries.updateWiki(req, updatedWiki, (err, wiki) => {
       if (err || wiki == null) {

@@ -20,7 +20,27 @@
         <label for="body">Body</label>
         <textarea name="body" rows="4" class="form-control" placeholder="Enter Body"></textarea>
       </div>
-      <button type='submit' class='btn btn-primary'>Submit</button>
+      <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="publicRadio" name="private" class="custom-control-input" value="false" checked>
+          <label class="custom-control-label" for="publicRadio">Public</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input 
+          type="radio" 
+          id="privateRadio" 
+          name="private"
+          value="true"
+          class="custom-control-input"
+          <%= currentUser.role === "member" && "disabled" %>
+        >
+        <label class="custom-control-label" for="privateRadio">Private</label>
+      </div>
+
+      <% if (currentUser.role === "member") { %>
+        <small class="text-muted">Only premium member can create private wiki</small>
+      <% } %>
+      <br>
+      <button type='submit' class='btn btn-primary mt-3'>Submit</button>
     </form>
   </main>
   

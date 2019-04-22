@@ -8,9 +8,30 @@
 
   <main class="container text-center">
     <h1>Change Plan</h1>
-
+    <h4 class="text-danger">Important Notice</h4>
+    <h5>All of your private wikis will become public wikis if you cancel your premium account.</h5>
     <form action="/users/<%= currentUser.id %>/downgrade" method="post">
-      <button type='submit' class='btn btn-danger'>Cancel Premium Plan</button>
+      <button type='button' class='btn btn-danger' data-toggle="modal" data-target="#Modal">Cancel Premium Plan</button>
+
+      <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Downgrade Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to downgrade your account?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-primary">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </form>
   </main>
 

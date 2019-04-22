@@ -72,7 +72,13 @@ module.exports = {
       } else {
         user.role = 'member';
         user.save().then(user => {
-          callback(null, user);
+          Wiki.findAll({where: {userId: user.id}}).then(wikis => {
+            wikis.forEach(wiki => {
+              wiki.private = false;
+              wiki.save();
+            })
+            callback(null, user);
+          })
         })
         .catch(err => {
           callback(err);

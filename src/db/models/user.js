@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Wiki, {
       foreignKey: "userId",
       as: "wikis"
+    });
+    User.addScope("user", (userId) => {
+      return {
+        where: {id: userId},
+      }
     })
   };
   User.prototype.isAdmin = function() {
