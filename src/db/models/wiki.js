@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
         where: {userId: userId},
         order:[["updatedAt", "DESC"]]
       }
+    });
+    Wiki.hasMany(models.Collaborator, {
+      foreignKey: "wikiId",
+      as: "collaborators"
     })
   };
   return Wiki;

@@ -1,8 +1,25 @@
 const bcrypt = require("bcryptjs"),
       User   = require("./models").User,
       Wiki   = require("./models").Wiki;
+      Op     = require("sequelize").Op;
 
 module.exports = {
+  getUsers(req, collaboratorList, callback) {
+    return User.findAll({
+      where: {
+        email: {
+          [Op.notIn]: collaboratorList,
+          [Op.ne]: req.user.email
+        }
+      }
+    }).then(users => {
+      callback(null, users);
+    })
+    .catch(err => {
+      callback(err);
+    })
+  },
+
   createUser(newUser, callback) {
     User.findOne({where: {email: newUser.email}}).then(user => {
       if(user) {

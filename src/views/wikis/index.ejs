@@ -6,7 +6,7 @@
 <body>
   <% include ../static/partials/navbar.ejs %>
 
-  <main class="container">
+  <main class="container mt-2">
     <% include ../static/partials/messages.ejs %>
 
     <h1 class="text-center">Wikis</h1>
@@ -15,20 +15,32 @@
       <a href="/wikis/new" class="btn btn-success mx-auto">New Wiki</a>
     </div>
       <ul class="list-group mt-3">
+        
         <% wikis.forEach(wiki => { %>
-          <% if (currentUser && (currentUser.role === "premium" || currentUser.isAdmin())) { %>
-          <li class="list-group-item">
-            <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
-            <% if (wiki.private) { %>
-              <span class="badge badge-pill badge-success">private</span>
-            <% } %>
-          </li>
-          <% } else if ( wiki.private === false ){ %>
+
+          <% if (currentUser && (wiki.userId === currentUser.id || currentUser.isAdmin())) { %>
+            <li class="list-group-item">
+              <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+              <% if (wiki.private) { %>
+                <span class="badge badge-pill badge-success">private</span>
+              <% } %>
+            </li>
+          <% } else if (wiki.private === false) { %>
+            <li class="list-group-item">
+                <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+            </li>
+          <% } %>
+
+          <% collaborators.forEach(colla => { %>
+            <% if (currentUser && colla.email === currentUser.email && wiki.id === colla.wikiId) { %>
               <li class="list-group-item">
                 <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+                <span class="badge badge-pill badge-success">private</span>
               </li>
-          <% } %>
+            <% } %>
+          <% }) %>
         <% }) %>
+
       </ul>
   </main>
   

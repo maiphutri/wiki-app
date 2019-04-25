@@ -21,7 +21,15 @@
           <textarea name="body" rows="4" class="form-control" placeholder="Enter Body"><%= wiki.body %></textarea>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="publicRadio" name="private" class="custom-control-input" value="false" checked>
+            <input 
+              type="radio" 
+              id="publicRadio" 
+              name="private" 
+              class="custom-control-input" 
+              value=false 
+              <%= !wiki.private && "checked" %> 
+              <%= currentUser.id !== wiki.userId && "disabled" %>
+            >
             <label class="custom-control-label" for="publicRadio">Public</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
@@ -29,9 +37,10 @@
             type="radio" 
             id="privateRadio" 
             name="private"
-            value="true"
+            value=true
             class="custom-control-input"
             <%= currentUser.role === "member" && "disabled" %>
+            <%= wiki.private && "checked" %>
           >
           <label class="custom-control-label" for="privateRadio">Private</label>
         </div>

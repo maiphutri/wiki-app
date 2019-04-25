@@ -6,28 +6,39 @@
 <body>
   <% include ../static/partials/navbar.ejs %>
 
-  <main class='container'>
+  <main class='container mt-2'>
 
     <% include ../static/partials/messages.ejs %>
 
     <h1><%= wiki.title %></h1>
 
+    <% if (wiki.private) { %>
+      <span class="badge badge-pill badge-success d-block" style="width: 56px;">private</span>
+    <% } %>
   
-    <small class="text-muted">created by <%= user.email %></small>
+    <small class="text-muted d-block">created by <%= user.email %></small>
 
     <% if (currentUser) { %>
-      <% if (currentUser.id === wiki.userId || currentUser.isAdmin()) { %>
-
-        <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning d-inline-block">Edit</a>
-
-        <form class="d-inline-block" action="/wikis/<%= wiki.id %>/destroy" method="post">
-    
-          <button type='button' class='btn btn-danger' data-toggle="modal" data-target="#Modal">Delete</button>
-
-          <% include ../static/partials/delete_modal.ejs %>
-
-        </form>
-        
+      <% if ( collaborator && (currentUser.email === collaborator.email) ) { %>
+        <section class="mt-2">
+          <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning d-inline-block">Edit</a>
+        </section>
+      <% } else if (currentUser.id === wiki.userId || currentUser.isAdmin() ) { %>
+        <section class="mt-2">
+          <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning d-inline-block">Edit</a>
+  
+          <form class="d-inline-block" action="/wikis/<%= wiki.id %>/destroy" method="post">
+      
+            <button type='button' class='btn btn-danger' data-toggle="modal" data-target="#Modal">Delete</button>
+  
+            <% include ../static/partials/delete_modal.ejs %>
+  
+          </form>
+          
+          <% if (wiki.private) { %>
+            <a href="/wikis/<%= wiki.id %>/collaborators" class="btn btn-info">Collaborators</a>
+          <% } %>
+        </section>
       <% } %>
     <% } %>
 

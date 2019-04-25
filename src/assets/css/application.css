@@ -4,8 +4,12 @@ body {
 
 .list-group-item, .list-group-item:hover{ z-index: auto; }
 
-#card {
+#cardPlan {
   width: 50%;
   margin: 50px auto;
+}
+#cardCollaborator {
+  width: 50%;
+  margin: 15px auto;
 }
 
