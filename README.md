@@ -1,6 +1,6 @@
 # Blocipedia-node
 
-Blocipedia is a CRUD web application built with NodeJS that allows authenticated users to create public and private markdown-based wikis based on their user role (standard or premium) and collaboration status. Check it out by visit at [blocipedia-heroku] (https://maiphutri-blocipedia.herokuapp.com)
+Blocipedia is a CRUD web application built with NodeJS that allows authenticated users to create public and private markdown-based wikis based on their user role (standard or premium) and collaboration status. Check it out by visit at [blocipedia-heroku](https://maiphutri-blocipedia.herokuapp.com)
 
 ### Sign up, sign in, sign out
 Blocipedia uses the [Passport](https://passportjs.org) to handle user authentication. When users sign up, they'll choose a email and password. Once signed up and log in, users will have full access to their own wikis as well as all public wikis. When signed out, users will only be able to view the homepage. To read or update an existing wiki, or to create a new wiki, a user must be signed in.
