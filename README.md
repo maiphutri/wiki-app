@@ -1,4 +1,4 @@
-# Blocipedia-node
+# Wiki-app
 
 Blocipedia is a CRUD web application built with NodeJS that allows authenticated users to create public and private markdown-based wikis based on their user role (standard or premium) and collaboration status. Check it out at [blocipedia-heroku](https://maiphutri-blocipedia.herokuapp.com)
 
